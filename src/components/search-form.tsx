@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Loader2, ArrowUp, Sparkles } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 const EXAMPLE_QUERIES = [
   "best wireless earbuds under ₹5000",
@@ -42,23 +42,23 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-6">
+    <div className="w-full max-w-2xl mx-auto space-y-8">
       <div className="text-center space-y-3">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight" style={{ color: "#ffffff" }}>
-          How visible is your product{" "}
-          <span className="bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent">
-            across AI engines?
-          </span>
+        <h1
+          className="text-[2.25rem] font-semibold tracking-[-0.03em] leading-tight text-[#ECEDEE]"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          How visible is your product across AI engines?
         </h1>
-        <p className="text-sm text-slate-500 max-w-md mx-auto">
-          See how AI recommends products for any query — and compare against real Amazon.in results.
+        <p className="text-[0.95rem] text-[#9CA3AF] max-w-lg mx-auto leading-[1.55]">
+          See how GPT, Claude, and Gemini recommend products — and compare against real Amazon.in results.
         </p>
       </div>
 
-      <div className="rounded-xl border border-white/10 bg-[#111827] shadow-lg shadow-black/20">
-        <div className="px-4 pt-4 pb-3">
+      <div className="rounded-[14px] border border-[#2A2D31] bg-[#17191C]">
+        <div className="px-5 pt-5 pb-3">
           <div className="flex items-center gap-3">
-            <Search className="w-4 h-4 text-slate-500 shrink-0" />
+            <Search className="w-4 h-4 text-[#9CA3AF] shrink-0" />
             <input
               type="text"
               placeholder="Enter a product query..."
@@ -66,24 +66,25 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") handleSubmit(); }}
               disabled={isLoading}
-              className="w-full bg-transparent text-white text-sm outline-none placeholder:text-slate-600 disabled:opacity-50"
+              className="w-full bg-transparent text-[#ECEDEE] text-[0.95rem] outline-none placeholder:text-[#9CA3AF]/40 disabled:opacity-50"
             />
             <button
               type="button"
               onClick={handleSubmit}
               disabled={!query.trim() || isLoading || selectedLLMs.length === 0}
-              className="w-8 h-8 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 inline-flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors shrink-0"
+              className="px-5 py-2 rounded-[10px] bg-[#B4FF39] hover:bg-[#c5ff66] text-[#0E1013] text-[0.75rem] font-semibold tracking-[0.02em] inline-flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors shrink-0"
             >
               {isLoading ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <ArrowUp className="w-3.5 h-3.5" />
+                "Diagnose"
               )}
             </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 px-4 py-2.5 border-t border-white/[0.06]">
+        <div className="flex items-center gap-1.5 px-5 py-3 border-t border-[#2A2D31]">
+          <span className="font-mono text-[0.75rem] tracking-[0.02em] text-[#9CA3AF] mr-2">Models</span>
           {LLM_OPTIONS.map((llm) => {
             const isSelected = selectedLLMs.includes(llm.id);
             return (
@@ -91,13 +92,12 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
                 key={llm.id}
                 type="button"
                 onClick={() => toggleLLM(llm.id)}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-[6px] font-mono text-[0.75rem] tracking-[0.02em] transition-colors cursor-pointer ${
                   isSelected
-                    ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
-                    : "text-slate-500 border border-transparent hover:text-slate-400"
+                    ? "bg-[#B4FF39]/10 text-[#B4FF39]"
+                    : "text-[#9CA3AF] hover:bg-[#1E2024]"
                 }`}
               >
-                <span>{llm.icon}</span>
                 {llm.label}
               </button>
             );
@@ -114,9 +114,8 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
               if (!isLoading) onSearch(example, selectedLLMs);
             }}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs rounded-full border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 transition-all disabled:opacity-50 text-slate-400 cursor-pointer"
+            className="px-3.5 py-1.5 font-mono text-[0.75rem] tracking-[0.02em] rounded-[6px] border border-[#2A2D31] bg-[#17191C] hover:bg-[#1E2024] transition-colors disabled:opacity-50 text-[#9CA3AF] cursor-pointer"
           >
-            <Sparkles className="w-3 h-3" />
             {example}
           </button>
         ))}

@@ -43,9 +43,9 @@ import {
 import { DiagnosticReport, BrandVisibility, SimilarityScore } from "@/lib/types";
 
 const PROVIDER_COLORS: Record<string, string> = {
-  openai: "#14b8a6",
-  anthropic: "#f59e0b",
-  gemini: "#06b6d4",
+  openai: "#B4FF39",
+  anthropic: "#FBBF24",
+  gemini: "#6EE7B7",
 };
 
 const PROVIDER_NAMES: Record<string, string> = {
@@ -55,11 +55,11 @@ const PROVIDER_NAMES: Record<string, string> = {
 };
 
 const SCORE_COLORS = [
-  "#22c55e",
-  "#84cc16",
-  "#eab308",
-  "#f97316",
-  "#ef4444",
+  "#B4FF39",
+  "#6EE7B7",
+  "#FBBF24",
+  "#F472B6",
+  "#FF4D4F",
 ];
 
 function getScoreColor(score: number): string {
@@ -98,11 +98,11 @@ function OverviewSection({ report }: ReportCardProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card className="border border-teal-500/20 bg-teal-500/5">
+      <Card className="border border-[#B4FF39]/20 bg-[#B4FF39]/5">
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-teal-500/10">
-              <Brain className="w-5 h-5 text-teal-400" />
+            <div className="p-2 rounded-[10px] bg-[#B4FF39]/10">
+              <Brain className="w-5 h-5 text-[#B4FF39]" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">AIs Queried</p>
@@ -115,8 +115,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-cyan-500/10">
-              <ShoppingCart className="w-5 h-5 text-cyan-400" />
+            <div className="p-2 rounded-[10px] bg-[#FBBF24]/10">
+              <ShoppingCart className="w-5 h-5 text-[#FBBF24]" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Amazon Results</p>
@@ -129,8 +129,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-500/10">
-              <Eye className="w-5 h-5 text-emerald-400" />
+            <div className="p-2 rounded-[10px] bg-[#6EE7B7]/10">
+              <Eye className="w-5 h-5 text-[#6EE7B7]" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Brands Found</p>
@@ -143,8 +143,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10">
-              <Trophy className="w-5 h-5 text-amber-400" />
+            <div className="p-2 rounded-[10px] bg-[#F472B6]/10">
+              <Trophy className="w-5 h-5 text-[#F472B6]" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Top Brand</p>
@@ -180,20 +180,20 @@ function BrandRankingsChart({ report }: ReportCardProps) {
       <CardContent>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={data} layout="vertical" margin={{ left: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-            <XAxis type="number" domain={[0, 100]} />
-            <YAxis type="category" dataKey="brand" width={110} tick={{ fontSize: 12 }} />
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#2A2D31" />
+            <XAxis type="number" domain={[0, 100]} tick={{ fill: "#9CA3AF", fontSize: 12 }} />
+            <YAxis type="category" dataKey="brand" width={110} tick={{ fill: "#9CA3AF", fontSize: 12 }} />
             <Tooltip
               content={({ payload }) => {
                 if (!payload?.length) return null;
                 const d = payload[0].payload;
                 return (
-                  <div className="bg-white border rounded-lg p-3 shadow-lg">
-                    <p className="font-semibold">{d.fullBrand}</p>
-                    <p className="text-sm">
-                      Score: <span className="font-bold">{d.score}/100</span>
+                  <div className="bg-[#17191C] border border-[#2A2D31] rounded-[10px] p-3 shadow-lg">
+                    <p className="font-semibold text-[#ECEDEE]">{d.fullBrand}</p>
+                    <p className="text-sm text-[#9CA3AF]">
+                      Score: <span className="font-bold text-[#ECEDEE]">{d.score}/100</span>
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-[#9CA3AF]">
                       {getScoreLabel(d.score)}
                     </p>
                   </div>
@@ -236,9 +236,9 @@ function RadarComparison({ report }: ReportCardProps) {
       <CardContent>
         <ResponsiveContainer width="100%" height={400}>
           <RadarChart data={radarData}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey="brand" tick={{ fontSize: 11 }} />
-            <PolarRadiusAxis angle={30} domain={[0, 10]} tick={{ fontSize: 10 }} />
+            <PolarGrid stroke="#2A2D31" />
+            <PolarAngleAxis dataKey="brand" tick={{ fontSize: 11, fill: "#9CA3AF" }} />
+            <PolarRadiusAxis angle={30} domain={[0, 10]} tick={{ fontSize: 10, fill: "#9CA3AF" }} />
             <Radar
               name="GPT-4o"
               dataKey="GPT"
@@ -277,7 +277,7 @@ function BrandTable({ report }: ReportCardProps) {
     return (
       <Badge
         variant={rank <= 3 ? "default" : "secondary"}
-        className={rank <= 3 ? "bg-green-600" : ""}
+        className={rank <= 3 ? "bg-[#B4FF39] text-[#0E1013]" : ""}
       >
         #{rank}
       </Badge>
@@ -536,42 +536,58 @@ function LLMResponseTimes({ report }: ReportCardProps) {
 
 function InsightsSection({ report }: ReportCardProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <Card className="border-blue-200">
+    <div className="space-y-6">
+      {/* Key Insights */}
+      <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-700">
-            <Lightbulb className="w-5 h-5" />
-            Key Insights
-          </CardTitle>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-[10px] bg-[#B4FF39]/10 flex items-center justify-center">
+              <Lightbulb className="w-5 h-5 text-[#B4FF39]" />
+            </div>
+            <div>
+              <CardTitle>Key Insights</CardTitle>
+              <CardDescription>What the data tells us about this market</CardDescription>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-3">
+          <div className="space-y-3">
             {report.overall_insights.map((insight: string, i: number) => (
-              <li key={i} className="flex gap-2 text-base">
-                <CheckCircle2 className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
-                <span>{insight}</span>
-              </li>
+              <div key={i} className="flex gap-4 p-4 rounded-[10px] bg-[#1E2024]">
+                <span className="w-7 h-7 rounded-full bg-[#B4FF39] text-[#0E1013] font-mono text-[0.75rem] font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
+                </span>
+                <p className="text-[0.92rem] text-[#ECEDEE] leading-[1.55]">{insight}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         </CardContent>
       </Card>
 
-      <Card className="border-green-200">
+      {/* Recommendations */}
+      <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-green-700">
-            <TrendingUp className="w-5 h-5" />
-            Recommendations
-          </CardTitle>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-[10px] bg-[#6EE7B7]/10 flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-[#6EE7B7]" />
+            </div>
+            <div>
+              <CardTitle>Recommendations</CardTitle>
+              <CardDescription>What brands should do to improve AI visibility</CardDescription>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-3">
+          <div className="space-y-3">
             {report.recommendations.map((rec, i) => (
-              <li key={i} className="flex gap-2 text-base">
-                <AlertCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span>{rec}</span>
-              </li>
+              <div key={i} className="flex gap-4 p-4 rounded-[10px] border border-[#2A2D31]">
+                <div className="w-7 h-7 rounded-full bg-[#6EE7B7]/10 flex items-center justify-center shrink-0">
+                  <Target className="w-3.5 h-3.5 text-[#6EE7B7]" />
+                </div>
+                <p className="text-[0.92rem] text-[#ECEDEE] leading-[1.55]">{rec}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         </CardContent>
       </Card>
     </div>
@@ -582,11 +598,13 @@ export function ReportCard({ report }: ReportCardProps) {
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">AEO Diagnostic Report</h2>
-        <p className="text-muted-foreground">
-          Query: <span className="font-medium text-foreground">&ldquo;{report.query}&rdquo;</span>
+        <h2 className="text-3xl font-bold text-[#ECEDEE]" style={{ fontFamily: "var(--font-display)" }}>
+          AEO Diagnostic Report
+        </h2>
+        <p className="text-[#9CA3AF]">
+          Query: <span className="font-medium text-[#ECEDEE]">&ldquo;{report.query}&rdquo;</span>
         </p>
-        <p className="text-sm text-muted-foreground">
+        <p className="font-mono text-[0.75rem] tracking-[0.02em] text-[#9CA3AF]">
           Generated {new Date(report.timestamp).toLocaleString()}
         </p>
       </div>

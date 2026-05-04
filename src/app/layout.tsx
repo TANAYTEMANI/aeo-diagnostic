@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -8,8 +8,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const interTight = Inter_Tight({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 const jetbrains = JetBrains_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
@@ -27,9 +33,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${inter.variable} ${interTight.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans" style={{ backgroundColor: "#0a0a0f", color: "#e2e8f0" }}>
+      <body className="min-h-full flex flex-col font-sans" style={{ backgroundColor: "#0E1013", color: "#ECEDEE" }}>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
