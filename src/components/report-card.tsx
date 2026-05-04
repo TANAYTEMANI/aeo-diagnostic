@@ -43,9 +43,9 @@ import {
 import { DiagnosticReport, BrandVisibility, SimilarityScore } from "@/lib/types";
 
 const PROVIDER_COLORS: Record<string, string> = {
-  openai: "#10b981",
+  openai: "#14b8a6",
   anthropic: "#f59e0b",
-  gemini: "#3b82f6",
+  gemini: "#06b6d4",
 };
 
 const PROVIDER_NAMES: Record<string, string> = {

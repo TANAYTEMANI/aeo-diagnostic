@@ -65,9 +65,10 @@ async def analyze(request: AnalyzeRequest):
     logger.info("── NEW QUERY: \"%s\" ──", query)
 
     # Step 1 — Fan-out LLMs + Amazon
-    logger.info("[1/4] Querying 3 LLMs + Amazon...")
+    selected_llms = request.llms
+    logger.info("[1/4] Querying %d LLMs (%s) + Amazon...", len(selected_llms), ", ".join(selected_llms))
     llm_responses, amazon_products = await asyncio.gather(
-        query_all_llms(query, oai_client),
+        query_all_llms(query, oai_client, selected_llms),
         fetch_amazon_products(query),
     )
     for r in llm_responses:

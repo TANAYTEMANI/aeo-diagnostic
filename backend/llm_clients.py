@@ -170,11 +170,18 @@ async def query_gemini(query: str, oai_client: openai.AsyncOpenAI) -> LLMRespons
         )
 
 
-async def query_all_llms(query: str, oai_client: openai.AsyncOpenAI) -> list[LLMResponse]:
-    """Fan-out queries to all three LLMs concurrently."""
-    results = await asyncio.gather(
-        query_openai(query, oai_client),
-        query_anthropic(query, oai_client),
-        query_gemini(query, oai_client),
-    )
+async def query_all_llms(
+    query: str,
+    oai_client: openai.AsyncOpenAI,
+    providers: list[str] | None = None,
+) -> list[LLMResponse]:
+    """Fan-out queries to selected LLMs concurrently."""
+    provider_map = {
+        "openai": query_openai,
+        "anthropic": query_anthropic,
+        "gemini": query_gemini,
+    }
+    selected = providers or list(provider_map.keys())
+    tasks = [provider_map[p](query, oai_client) for p in selected if p in provider_map]
+    results = await asyncio.gather(*tasks)
     return list(results)

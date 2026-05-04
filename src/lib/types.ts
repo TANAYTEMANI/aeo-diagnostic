@@ -57,4 +57,5 @@ export interface DiagnosticReport {
 
 export interface AnalyzeRequest {
   query: string;
+  llms: string[];
 }

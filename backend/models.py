@@ -58,3 +58,4 @@ class DiagnosticReport(BaseModel):
 
 class AnalyzeRequest(BaseModel):
     query: str
+    llms: list[str] = ["openai", "anthropic", "gemini"]
