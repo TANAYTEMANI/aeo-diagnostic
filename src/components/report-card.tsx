@@ -98,11 +98,11 @@ function OverviewSection({ report }: ReportCardProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card className="border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-white">
+      <Card className="border border-teal-500/20 bg-teal-500/5">
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-violet-100">
-              <Brain className="w-5 h-5 text-violet-600" />
+            <div className="p-2 rounded-lg bg-teal-500/10">
+              <Brain className="w-5 h-5 text-teal-400" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">AIs Queried</p>
@@ -115,8 +115,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-blue-100">
-              <ShoppingCart className="w-5 h-5 text-blue-600" />
+            <div className="p-2 rounded-lg bg-cyan-500/10">
+              <ShoppingCart className="w-5 h-5 text-cyan-400" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Amazon Results</p>
@@ -129,8 +129,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-green-100">
-              <Eye className="w-5 h-5 text-green-600" />
+            <div className="p-2 rounded-lg bg-emerald-500/10">
+              <Eye className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Brands Found</p>
@@ -143,8 +143,8 @@ function OverviewSection({ report }: ReportCardProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-amber-100">
-              <Trophy className="w-5 h-5 text-amber-600" />
+            <div className="p-2 rounded-lg bg-amber-500/10">
+              <Trophy className="w-5 h-5 text-amber-400" />
             </div>
             <div>
               <p className="text-base text-muted-foreground">Top Brand</p>
